@@ -246,7 +246,7 @@ $(function() {
             frequency: 10,
             decoder: {
                 readers : [{
-                    format: "code_128_reader",
+                    format: "ean_reader",
                     config: {}
                 }]
             },
@@ -291,15 +291,19 @@ $(function() {
             $.get("https://www.googleapis.com/books/v1/volumes?q=isbn:"+code, function(data){
                 console.log("Book Found");
                 console.log(JSON.stringify(data));
-                
-                var $node = null, canvas = Quagga.canvas.dom.image;
-                let bookname = data.items[0].volumeInfo.title;
-                let cover = data.items[0].volumeInfo.imageLinks.thumbnail;
+                if(data.totalItems == 0){
+                    alert("Book: "+ code + " Not Found.");
+                }else{
+                    var $node = null, canvas = Quagga.canvas.dom.image;
+                    let bookname = data.items[0].volumeInfo.title;
+                    let cover = data.items[0].volumnInfo.hasOwnProperty("imageLinks")?data.items[0].volumeInfo.imageLinks.thumbnail:"generic-book-cover.jpg";
 
-                $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
-                $node.find("img").attr("src", cover);
-                $node.find("h4.code").html(bookname);
-                $("#result_strip ul.thumbnails").prepend($node);
+                    $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
+                    $node.find("img").attr("src", cover);
+                    $node.find("h4.code").html(bookname);
+                    $("#result_strip ul.thumbnails").prepend($node);
+                }
+                
             })
         }
     });
