@@ -296,7 +296,8 @@ $(function() {
                 }else{
                     var $node = null, canvas = Quagga.canvas.dom.image;
                     let bookname = data.items[0].volumeInfo.title;
-                    let cover = data.items[0].volumnInfo.hasOwnProperty("imageLinks")?data.items[0].volumeInfo.imageLinks.thumbnail:"generic-book-cover.jpg";
+                    let cover = data.items[0].volumeInfo.imageLinks?data.items[0].volumeInfo.imageLinks.thumbnail:"generic-book-cover.jpg";
+                    // let cover = data.items[0].volumeInfo.imageLinks.thumbnail;
 
                     $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
                     $node.find("img").attr("src", cover);
