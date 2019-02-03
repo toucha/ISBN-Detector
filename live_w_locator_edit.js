@@ -234,6 +234,7 @@ $(function() {
                 constraints: {
                     width: {min: 640},
                     height: {min: 480},
+                    // size: 640,
                     facingMode: "environment",
                     aspectRatio: {min: 1, max: 2}
                 }
